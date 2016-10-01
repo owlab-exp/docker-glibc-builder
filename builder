@@ -17,7 +17,7 @@ main() {
 			--libexecdir="$prefix/lib" \
 			--host=${arch}-linux \
 			--enable-multi-arch
-		make && make install
+		CPUS=$(grep -c ^processor /proc/cpuinfo) make -j $CPUS && make install
 		tar --hard-dereference -zcf "/glibc-bin-$version-$arch.tar.gz" "$prefix"
 	} >&2
 
